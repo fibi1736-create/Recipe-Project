@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YumDiary — Browse Categories</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+
+  /* ════════════════════════════════════════
+     CATEGORY PAGE — PREMIUM DESIGN
+  ════════════════════════════════════════ */
+
+  /* ── HERO ── */
+  .cat-hero {
+    position: relative;
+    padding: 6rem 4vw 5rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  .cat-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 70% at 50% 0%, rgba(200,82,42,.10), transparent 65%),
+      radial-gradient(ellipse 40% 50% at 10% 80%, rgba(232,160,32,.08), transparent);
+    pointer-events: none;
+  }
+  .cat-hero-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+  .cat-hero h1 { margin-bottom: .9rem; }
+  .cat-hero .hero-sub { margin: 0 auto 2rem; max-width: 500px; }
+
+  /* search */
+  .cat-search {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1.5px solid rgba(200,82,42,.15);
+    border-radius: 50px;
+    padding: .5rem .5rem .5rem 1.4rem;
+    box-shadow: 0 6px 28px rgba(30,15,5,.08);
+    max-width: 520px;
+    margin: 0 auto;
+    gap: .7rem;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .cat-search:focus-within { border-color: var(--accent); box-shadow: 0 6px 32px rgba(200,82,42,.18); }
+  .cat-search input {
+    flex: 1; border: none; outline: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .96rem; color: var(--ink); background: transparent;
+  }
+  .cat-search input::placeholder { color: var(--muted); }
+  .cat-search .search-icon { color: var(--muted); flex-shrink: 0; }
+  .cat-search .search-btn {
+    background: var(--accent); color: #fff; border: none;
+    border-radius: 50px; padding: .65rem 1.4rem;
+    font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 600;
+    cursor: pointer; transition: background .2s, transform .18s;
+  }
+  .cat-search .search-btn:hover { background: #b04422; transform: scale(1.03); }
+
+  /* breadcrumb */
+  .breadcrumb {
+    max-width: 1280px; margin: 0 auto;
+    padding: 0 4vw 1.5rem;
+    display: flex; align-items: center; gap: .5rem;
+    font-size: .83rem; color: var(--muted);
+  }
+  .breadcrumb a { text-decoration: none; color: var(--muted); transition: color .2s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb strong { color: var(--accent); }
+  .breadcrumb svg { opacity: .4; }
+
+  /* ── FEATURED BANNER ── */
+  .feat-banner {
+    max-width: 1280px; margin: 0 auto; padding: 0 4vw 3.5rem;
+  }
+  .feat-banner-inner {
+    border-radius: 28px; overflow: hidden;
+    background: linear-gradient(120deg, #1a1208 0%, #2e180c 55%, #3d200e 100%);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    min-height: 200px;
+    position: relative;
+  }
+  .feat-banner-inner::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 80% at 0% 50%, rgba(200,82,42,.28), transparent);
+    pointer-events: none;
+  }
+  .feat-slot {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: flex .4s ease;
+    min-height: 200px;
+  }
+  .feat-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform .5s ease, filter .4s ease;
+    filter: brightness(.55) saturate(.8);
+  }
+  .feat-slot:hover img { transform: scale(1.08); filter: brightness(.7) saturate(1.1); }
+  .feat-slot-emoji {
+    width: 100%; height: 100%; min-height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+    transition: transform .4s ease;
+  }
+  .feat-slot:hover .feat-slot-emoji { transform: scale(1.12); }
+  .feat-slot-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,5,0,.8) 0%, transparent 60%);
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.4rem 1.2rem;
+    z-index: 2;
+  }
+  .feat-slot-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-weight: 700;
+    color: #fff; line-height: 1.2;
+    margin-bottom: .25rem;
+  }
+  .feat-slot-count { font-size: .75rem; color: rgba(255,255,255,.55); }
+  .feat-slot-arrow {
+    position: absolute; top: 1rem; right: 1rem;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.2);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: .75rem;
+    opacity: 0; transition: opacity .25s, background .2s;
+    z-index: 3;
+  }
+  .feat-slot:hover .feat-slot-arrow { opacity: 1; background: var(--accent); border-color: var(--accent); }
+
+  /* ── SECTION HEADER ── */
+  .sec-header {
+    max-width: 1280px; margin: 0 auto;
+    padding: 0 4vw 1.8rem;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .sec-header-left {}
+  .sec-label {
+    font-size: .72rem; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .4rem;
+  }
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700; color: var(--ink); line-height: 1.2;
+  }
+  .sec-link {
+    text-decoration: none; color: var(--accent);
+    font-size: .88rem; font-weight: 600;
+    border-bottom: 1.5px solid rgba(200,82,42,.3);
+    padding-bottom: 1px; white-space: nowrap;
+    transition: color .2s, border-color .2s;
+  }
+  .sec-link:hover { color: #b04422; border-color: #b04422; }
+
+  /* ── ALL CATEGORIES GRID ── */
+  .cat-grid-wrap { max-width: 1280px; margin: 0 auto; padding: 0 4vw 4rem; }
+
+  /* filter bar */
+  .cat-filter-row {
+    display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: 2rem;
+  }
+  .cfbtn {
+    border: 1.5px solid rgba(200,82,42,.15);
+    background: var(--card-bg);
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: .83rem; font-weight: 600;
+    padding: .42rem 1.1rem; border-radius: 50px;
+    cursor: pointer; transition: all .2s;
+  }
+  .cfbtn:hover { border-color: var(--accent); color: var(--accent); }
+  .cfbtn.active { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 3px 12px rgba(200,82,42,.28); }
+
+  /* big grid */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.4rem;
+  }
+
+  /* ── CATEGORY CARD ── */
+  .ccard {
+    border-radius: 22px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 6px 30px rgba(30,15,5,.10);
+    transition: transform .3s ease, box-shadow .3s ease;
+    opacity: 0;
+    transform: translateY(24px) scale(.97);
+    aspect-ratio: 4 / 3;
+    background: var(--warm);
+  }
+  .ccard.on { animation: catIn .5s ease forwards; }
+  @keyframes catIn { to { opacity: 1; transform: translateY(0) scale(1); } }
+  .ccard:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 18px 52px rgba(30,15,5,.18); }
+
+  .ccard-bg {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem;
+    transition: transform .45s ease;
+  }
+  .ccard:hover .ccard-bg { transform: scale(1.1); }
+
+  .ccard-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .45s ease, filter .3s ease;
+    filter: brightness(.6) saturate(.85);
+  }
+  .ccard:hover .ccard-img { transform: scale(1.07); filter: brightness(.72) saturate(1); }
+
+  .ccard-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(12,6,2,.85) 0%, rgba(12,6,2,.1) 55%, transparent 100%);
+    z-index: 1;
+    transition: background .3s ease;
+  }
+  .ccard:hover .ccard-overlay {
+    background: linear-gradient(to top, rgba(12,6,2,.9) 0%, rgba(12,6,2,.3) 60%, rgba(200,82,42,.05) 100%);
+  }
+
+  .ccard-body {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1.2rem 1.3rem;
+    z-index: 2;
+  }
+
+  .ccard-tag {
+    display: inline-block;
+    font-size: .65rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    padding: .2rem .65rem; border-radius: 50px;
+    margin-bottom: .55rem;
+  }
+  .tag-cuisine  { background: rgba(232,160,32,.2); color: var(--accent2); border: 1px solid rgba(232,160,32,.3); }
+  .tag-meal     { background: rgba(200,82,42,.2);  color: #f5a080;        border: 1px solid rgba(200,82,42,.35); }
+  .tag-diet     { background: rgba(60,160,80,.2);  color: #7dd4a0;        border: 1px solid rgba(60,160,80,.3);  }
+  .tag-method   { background: rgba(100,140,220,.2); color: #a0c0f0;       border: 1px solid rgba(100,140,220,.3);}
+
+  .ccard-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 700;
+    color: #fff; line-height: 1.25;
+    margin-bottom: .3rem;
+  }
+
+  .ccard-meta {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+  }
+  .ccard-count { font-size: .78rem; color: rgba(255,255,255,.55); }
+  .ccard-arrow {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.2);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: .7rem;
+    transition: background .22s, border-color .22s, transform .22s;
+    flex-shrink: 0;
+  }
+  .ccard:hover .ccard-arrow { background: var(--accent); border-color: var(--accent); transform: scale(1.15); }
+
+  /* ── TRENDING ROW (horizontal scroll) ── */
+  .trending-wrap { max-width: 1280px; margin: 0 auto; padding: 0 4vw 4rem; }
+
+  .trending-scroll {
+    display: flex; gap: 1.2rem;
+    overflow-x: auto;
+    padding-bottom: .8rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(200,82,42,.25) transparent;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+  .trending-scroll::-webkit-scrollbar { height: 4px; }
+  .trending-scroll::-webkit-scrollbar-thumb { background: rgba(200,82,42,.25); border-radius: 4px; }
+
+  /* trending pill card */
+  .tcard {
+    flex: 0 0 220px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--card-bg);
+    border: 1px solid rgba(200,82,42,.08);
+    box-shadow: 0 4px 20px rgba(30,15,5,.07);
+    cursor: pointer;
+    transition: transform .28s, box-shadow .28s;
+    scroll-snap-align: start;
+  }
+  .tcard:hover { transform: translateY(-5px); box-shadow: 0 12px 36px rgba(30,15,5,.13); }
+  .tcard-img {
+    height: 130px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3.8rem;
+    position: relative; overflow: hidden;
+  }
+  .tcard-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+  .tcard:hover .tcard-img img { transform: scale(1.07); }
+  .tcard-body { padding: .9rem 1rem 1rem; }
+  .tcard-rank {
+    font-size: .68rem; font-weight: 800;
+    letter-spacing: .1em; color: var(--accent);
+    margin-bottom: .25rem;
+  }
+  .tcard-name {
+    font-family: 'Playfair Display', serif;
+    font-size: .95rem; font-weight: 700; color: var(--ink);
+    line-height: 1.3; margin-bottom: .35rem;
+  }
+  .tcard-info { font-size: .75rem; color: var(--muted); }
+
+  /* ── CUISINE SPOTLIGHT (big editorial section) ── */
+  .spotlight-wrap { max-width: 1280px; margin: 0 auto; padding: 0 4vw 5rem; }
+  .spotlight-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.3rem;
+  }
+  .spot-main {
+    grid-row: 1 / 3;
+    border-radius: 24px; overflow: hidden;
+    position: relative; min-height: 420px; cursor: pointer;
+    box-shadow: 0 10px 44px rgba(30,15,5,.15);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .spot-main:hover { transform: translateY(-5px); box-shadow: 0 20px 60px rgba(30,15,5,.2); }
+  .spot-main-bg {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9rem; background: linear-gradient(135deg, #1a1208, #3a200a);
+    transition: transform .5s;
+  }
+  .spot-main:hover .spot-main-bg { transform: scale(1.04); }
+  .spot-main-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,5,0,.92) 0%, rgba(10,5,0,.3) 50%, transparent 100%);
+  }
+  .spot-main-content {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 2rem 2rem;
+    z-index: 2;
+  }
+  .spot-badge {
+    display: inline-flex; align-items: center; gap: .4rem;
+    background: var(--accent); color: #fff;
+    font-size: .7rem; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; padding: .28rem .8rem; border-radius: 50px;
+    margin-bottom: .85rem;
+  }
+  .spot-main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700; color: #fff; line-height: 1.2;
+    margin-bottom: .5rem;
+  }
+  .spot-main-desc { font-size: .88rem; color: rgba(255,255,255,.6); margin-bottom: 1.2rem; max-width: 320px; }
+  .spot-main-btn {
+    display: inline-flex; align-items: center; gap: .45rem;
+    background: #fff; color: var(--ink);
+    text-decoration: none; font-size: .85rem; font-weight: 700;
+    padding: .6rem 1.4rem; border-radius: 50px;
+    transition: background .2s, color .2s, transform .18s;
+  }
+  .spot-main-btn:hover { background: var(--accent); color: #fff; transform: scale(1.04); }
+
+  .spot-side {
+    border-radius: 20px; overflow: hidden;
+    position: relative; cursor: pointer;
+    box-shadow: 0 6px 28px rgba(30,15,5,.10);
+    transition: transform .28s, box-shadow .28s;
+    min-height: 195px;
+  }
+  .spot-side:hover { transform: translateY(-4px); box-shadow: 0 14px 44px rgba(30,15,5,.16); }
+  .spot-side-bg {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem; min-height: 195px;
+    transition: transform .4s;
+  }
+  .spot-side:hover .spot-side-bg { transform: scale(1.07); }
+  .spot-side-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,5,0,.82) 0%, transparent 60%);
+  }
+  .spot-side-content {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1.2rem 1.4rem; z-index: 2;
+  }
+  .spot-side-label { font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: .3rem; }
+  .spot-side-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: .2rem; }
+  .spot-side-count { font-size: .75rem; color: rgba(255,255,255,.45); }
+
+  /* ── STATS BAND ── */
+  .stats-band {
+    background: linear-gradient(135deg, #1a1208, #2e180c);
+    margin: 0 4vw 4rem;
+    border-radius: 24px;
+    padding: 2.8rem 3rem;
+    display: flex; align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap; gap: 2rem;
+    max-width: calc(1280px - 8vw);
+    margin-left: auto; margin-right: auto;
+    position: relative; overflow: hidden;
+  }
+  .stats-band::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 80% at 0% 50%, rgba(200,82,42,.2), transparent);
+    pointer-events: none;
+  }
+  .sband-item { text-align: center; position: relative; z-index: 1; }
+  .sband-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 700;
+    color: var(--accent2); line-height: 1.1; display: block;
+  }
+  .sband-lbl { font-size: .78rem; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .1em; }
+  .sband-div { width: 1px; height: 40px; background: rgba(255,255,255,.1); }
+
+  /* ── NEWSLETTER ── */
+  /* uses global styles from style.css */
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .feat-banner-inner { grid-template-columns: 1fr 1fr; }
+    .spotlight-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .spot-main { grid-row: auto; min-height: 300px; }
+    .sband-div { display: none; }
+  }
+  @media (max-width: 640px) {
+    .feat-banner-inner { grid-template-columns: 1fr 1fr; }
+    .cat-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 420px) {
+    .feat-banner-inner { grid-template-columns: 1fr; }
+    .cat-grid { grid-template-columns: 1fr; }
+  }
+  </style>
+</head>
+<body>
+
+  <div class="marble"></div>
+  <div id="stage">
+    <div class="ing" id="i1">🥕</div><div class="ing" id="i2">🧅</div>
+    <div class="ing" id="i3">🌿</div><div class="ing" id="i4">🫚</div>
+    <div class="ing" id="i5">🫑</div><div class="ing" id="i6">🍋</div>
+    <div class="ing" id="i7">🌶️</div><div class="ing" id="i8">🧄</div>
+    <div class="ing accent" id="i9">✦</div><div class="ing accent" id="i10">✦</div>
+    <div class="ing" id="i11">🌰</div><div class="ing" id="i12">🫛</div>
+  </div>
+
+  <!-- Nav -->
+  <nav>
+    <div class="logo">Yum<em>Diary</em></div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="recipes.html">Recipes</a>
+      <a href="category.html" class="nav-active">Categories</a>
+      <a href="#">About</a>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-btn ghost" aria-label="Search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="nav-btn primary">+ Add Recipe</button>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="recipes.html">Recipes</a>
+    <a href="category.html">Categories</a>
+    <a href="#">About</a>
+    <a href="#" class="mob-cta">+ Add Recipe</a>
+  </div>
+
+  <!-- Hero -->
+  <div class="cat-hero fi">
+    <div class="cat-hero-inner">
+      <div class="eyebrow">🗂️ Explore</div>
+      <h1>Browse by <em>Category</em></h1>
+      <p class="hero-sub">From world cuisines to cooking methods — find exactly what you're craving in seconds.</p>
+      <div class="cat-search">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Search a category…" id="catSearch" />
+        <button class="search-btn">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    <strong>Categories</strong>
+  </div>
+
+  <!-- Featured Banner -->
+  <div class="feat-banner fi">
+    <div class="feat-banner-inner">
+
+      <div class="feat-slot" style="background: linear-gradient(135deg,#1a1208,#3a180a);">
+        <div style="width:100%;height:100%;min-height:200px;display:flex;align-items:center;justify-content:center;font-size:5rem;">🍣</div>
+        <div class="feat-slot-overlay">
+          <div class="feat-slot-name">Japanese</div>
+          <div class="feat-slot-count">312 recipes</div>
+        </div>
+        <div class="feat-slot-arrow">→</div>
+      </div>
+
+      <div class="feat-slot" style="background: linear-gradient(135deg,#0e1a10,#1a3a18);">
+        <div style="width:100%;height:100%;min-height:200px;display:flex;align-items:center;justify-content:center;font-size:5rem;">🍝</div>
+        <div class="feat-slot-overlay">
+          <div class="feat-slot-name">Italian</div>
+          <div class="feat-slot-count"

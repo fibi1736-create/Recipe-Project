@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YumDiary – All Recipes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="category.css">
+</head>
+<body>
+
+<!-- Floating Decorations -->
+<div class="float-deco">🌿</div>
+<div class="float-deco">🌶️</div>
+<div class="float-deco">🧅</div>
+<div class="float-deco">🍋</div>
+<div class="float-deco">✦</div>
+<div class="float-deco">🫚</div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#" class="logo">Yum<span>Diary</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="category.html">Categories</a></li>
+    <li><a href="Recipemenu.html">Recipes</a></li>
+    <li><a href="aboutpage.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </button>
+    <button class="btn-add">+ Add Recipe</button>
+  </div>
+</nav>
+
+<!-- HERO BANNER -->
+<div class="hero-banner">
+  <div class="breadcrumb">
+    <a href="#">Home</a><span>›</span>
+    All Recipes
+  </div>
+  <div class="hero-label">Browse All Recipes</div>
+  <h1 class="hero-title">Every Dish, Every<br><em>Craving</em> Covered</h1>
+  <p class="hero-desc">From quick weeknight dinners to slow-cooked Sunday feasts — explore 2,400+ recipes across every cuisine and meal type.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>2,400+</strong><span>Recipes</span></div>
+    <div class="hero-stat"><strong>120k</strong><span>Home Cooks</span></div>
+    <div class="hero-stat"><strong>48</strong><span>Cuisines</span></div>
+    <div class="hero-stat"><strong>4.8★</strong><span>Avg Rating</span></div>
+  </div>
+  <div class="hero-emoji">🍽️</div>
+</div>
+
+<!-- CATEGORY PILLS -->
+<div class="category-strip">
+  <button class="cat-pill active" onclick="setCat(this)"><span class="pill-icon">🍽️</span> All</button>
+  <button class="cat-pill" onclick="setCat(this)"><span class="pill-icon">🌅</span> Breakfast</button>
+  <button class="cat-pill" onclick="setCat(this)"><span class="pill-icon">🥗</span> Lunch</button>
+  <button class="cat-pill" onclick="setCat(this)"><span class="pill-icon">🍲</span> Dinner</button>
+  <button class="cat-pill" onclick="setCat(this)"><span class="pill-icon">🍰</span> Desserts</button>
+  <button class="cat-pill" onclick="setCat(this)"><span class="pill-icon">🥩</span> Meat</button>
+  <button class="cat-pill" onclick="setCat(this)"><span class="pill-icon">🐟</span> Seafood</button>
+  <button class="cat-pill" onclick="setCat(this)"><span class="pill-icon">🥦</span> Vegetarian</button>
+  <button class="cat-pill" onclick="setCat(this)"><span class="pill-icon">🌱</span> Vegan</button>
+  <button class="cat-pill" onclick="setCat(this)"><span class="pill-icon">🍜</span> Pasta & Noodles</button>
+  <button class="cat-pill" onclick="setCat(this)"><span class="pill-icon">🍕</span> Pizza & Bread</button>
+  <button class="cat-pill" onclick="setCat(this)"><span class="pill-icon">🥘</span> Soups & Stews</button>
+  <button class="cat-pill" onclick="setCat(this)"><span class="pill-icon">⚡</span> Quick & Easy</button>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-tags">
+    <button class="filter-tag active" onclick="setFilter(this)">All</button>
+    <button class="filter-tag" onclick="setFilter(this)">Easy</button>
+    <button class="filter-tag" onclick="setFilter(this)">Medium</button>
+    <button class="filter-tag" onclick="setFilter(this)">Advanced</button>
+    <button class="filter-tag" onclick="setFilter(this)">Under 30 min</button>
+    <button class="filter-tag" onclick="setFilter(this)">Top Rated</button>
+  </div>
+  <div class="filter-right">
+    <label>Sort by</label>
+    <select class="sort-select">
+      <option>Most Popular</option>
+      <option>Highest Rated</option>
+      <option>Quickest</option>
+      <option>Newest</option>
+    </select>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="page-wrapper">
+  <div class="section-intro">
+    <div>
+      <h2>All Recipes</h2>
+      <p>The kind of food that feels like home, but tastes like a journey.</p>
+    </div>
+    <span class="result-count">Showing 1–9 of 2,400 results</span>
+  </div>
+
+  <div class="recipe-grid">
+
+    <!-- Card 1 - Breakfast -->
+    <a href="Recipemenu.html" class="recipe-card">
+      <div class="card-img" style="background:#f5ede0;">
+        <span class="emoji">🍳</span>
+        <span class="card-badge featured">⭐ Featured</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="card-tag">Breakfast</span><span class="card-tag">Easy</span></div>
+        <div class="card-title">Shakshuka</div>
+        <div class="card-desc">Eggs poached in a spiced tomato and pepper sauce. Bold, hearty, and ready in one pan.</div>
+        <div class="card-meta">
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            25 min
+          </span>
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            4.9
+          </span>
+        </div>
+        <div class="card-footer">
+          <span class="view-link">View Recipe →</span>
+          <button class="save-btn saved" onclick="event.preventDefault(); toggleSave(this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 2 - Lunch -->
+    <a href="Recipemenu.html" class="recipe-card">
+      <div class="card-img" style="background:#eaf0e8;">
+        <span class="emoji">🥗</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="card-tag">Lunch</span><span class="card-tag">Easy</span></div>
+        <div class="card-title">Grilled Halloumi Salad</div>
+        <div class="card-desc">Crispy golden halloumi over fresh greens, pomegranate, and a honey-lemon dressing.</div>
+        <div class="card-meta">
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            20 min
+          </span>
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            4.7
+          </span>
+        </div>
+        <div class="card-footer">
+          <span class="view-link">View Recipe →</span>
+          <button class="save-btn" onclick="event.preventDefault(); toggleSave(this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 3 - Dinner -->
+    <a href="Recipemenu.html" class="recipe-card">
+      <div class="card-img" style="background:#f0e8d8;">
+        <span class="emoji">🍗</span>
+        <span class="card-badge">Popular</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="card-tag">Dinner</span><span class="card-tag">Medium</span></div>
+        <div class="card-title">Butter Chicken</div>
+        <div class="card-desc">Tender chicken in a velvety tomato-cream sauce, perfumed with warming Indian spices.</div>
+        <div class="card-meta">
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            50 min
+          </span>
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            4.9
+          </span>
+        </div>
+        <div class="card-footer">
+          <span class="view-link">View Recipe →</span>
+          <button class="save-btn" onclick="event.preventDefault(); toggleSave(this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 4 - Pasta -->
+    <a href="Recipemenu.html" class="recipe-card">
+      <div class="card-img" style="background:#f2ede0;">
+        <span class="emoji">🍝</span>
+        <span class="card-badge featured">⭐ Featured</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="card-tag">Pasta</span><span class="card-tag">Medium</span></div>
+        <div class="card-title">Spaghetti Carbonara</div>
+        <div class="card-desc">Silky egg and pecorino sauce clinging to al dente pasta with crispy guanciale. No cream needed.</div>
+        <div class="card-meta">
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            30 min
+          </span>
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            4.8
+          </span>
+        </div>
+        <div class="card-footer">
+          <span class="view-link">View Recipe →</span>
+          <button class="save-btn" onclick="event.preventDefault(); toggleSave(this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 5 - Seafood -->
+    <a href="Recipemenu.html" class="recipe-card">
+      <div class="card-img" style="background:#e6eef5;">
+        <span class="emoji">🍤</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="card-tag">Seafood</span><span class="card-tag">Easy</span></div>
+        <div class="card-title">Spicy Shrimp Tacos</div>
+        <div class="card-desc">Juicy shrimp marinated in a fiery chilli blend, nestled in warm corn tortillas with slaw.</div>
+        <div class="card-meta">
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            25 min
+          </span>
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            4.8
+          </span>
+        </div>
+        <div class="card-footer">
+          <span class="view-link">View Recipe →</span>
+          <button class="save-btn" onclick="event.preventDefault(); toggleSave(this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 6 - Soup -->
+    <a href="Recipemenu.html" class="recipe-card">
+      <div class="card-img" style="background:#f5ede0;">
+        <span class="emoji">🍜</span>
+        <span class="card-badge">New</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="card-tag">Soup</span><span class="card-tag">Medium</span></div>
+        <div class="card-title">Tonkotsu Ramen</div>
+        <div class="card-desc">A rich, cloudy pork bone broth with chashu, soft-boiled egg, and fresh ramen noodles.</div>
+        <div class="card-meta">
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            3 hrs
+          </span>
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            4.9
+          </span>
+        </div>
+        <div class="card-footer">
+          <span class="view-link">View Recipe →</span>
+          <button class="save-btn" onclick="event.preventDefault(); toggleSave(this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 7 - Meat -->
+    <a href="Recipemenu.html" class="recipe-card">
+      <div class="card-img" style="background:#f0e4d5;">
+        <span class="emoji">🥩</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="card-tag">Meat</span><span class="card-tag">Advanced</span></div>
+        <div class="card-title">Beef Wellington</div>
+        <div class="card-desc">Tender beef fillet wrapped in mushroom duxelles and golden puff pastry. A showstopper.</div>
+        <div class="card-meta">
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            90 min
+          </span>
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            4.7
+          </span>
+        </div>
+        <div class="card-footer">
+          <span class="view-link">View Recipe →</span>
+          <button class="save-btn" onclick="event.preventDefault(); toggleSave(this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 8 - Vegetarian -->
+    <a href="Recipemenu.html" class="recipe-card">
+      <div class="card-img" style="background:#e8f0e8;">
+        <span class="emoji">🫕</span>
+        <span class="card-badge featured">⭐ Featured</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="card-tag">Vegetarian</span><span class="card-tag">Easy</span></div>
+        <div class="card-title">Saag Paneer</div>
+        <div class="card-desc">Creamy spiced spinach with pillowy cubes of pan-fried paneer. Comforting and fragrant.</div>
+        <div class="card-meta">
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            35 min
+          </span>
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            4.8
+          </span>
+        </div>
+        <div class="card-footer">
+          <span class="view-link">View Recipe →</span>
+          <button class="save-btn" onclick="event.preventDefault(); toggleSave(this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 9 - Dessert -->
+    <a href="Recipemenu.html" class="recipe-card">
+      <div class="card-img" style="background:#ede3d4;">
+        <span class="emoji">🍰</span>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="card-tag">Dessert</span><span class="card-tag">Medium</span></div>
+        <div class="card-title">Japanese Cheesecake</div>
+        <div class="card-desc">Ethereal. Fluffy. Unforgettable. Experience the magic of the famous Japanese jiggle.</div>
+        <div class="card-meta">
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            90 min
+          </span>
+          <span class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            4.9
+          </span>
+        </div>
+        <div class="card-footer">
+          <span class="view-link">View Recipe →</span>
+          <button class="save-btn" onclick="event.preventDefault(); toggleSave(this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- PAGINATION -->
+  <div class="pagination">
+    <button class="page-btn">‹</button>
+    <button class="page-btn active">1</button>
+    <button class="page-btn">2</button>
+    <button class="page-btn">3</button>
+    <button class="page-btn">…</button>
+    <button class="page-btn">267</button>
+    <button class="page-btn">›</button>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <div class="nl-label">Stay Inspired</div>
+  <h3>Get Weekly Recipe Inspiration</h3>
+  <p>Join 120,000+ home cooks. New recipes delivered every Sunday morning.</p>
+  <div class="nl-form">
+    <input class="nl-input" type="email" placeholder="Enter your email address...">
+    <button class="nl-btn">Subscribe</button>
+  </div>
+  <p class="nl-disclaimer">No spam. Unsubscribe anytime.</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <a href="#" class="logo">Yum<span>Diary</span></a>
+    <p>Your personal cookbook for every occasion.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Explore</h4>
+    <ul>
+      <li><a href="#">All Recipes</a></li>
+      <li><a href="#">By Cuisine</a></li>
+      <li><a href="#">Quick Meals</a></li>
+      <li><a href="#">Trending</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Account</h4>
+    <ul>
+      <li><a href="#">My Cookbook</a></li>
+      <li><a href="#">Saved Recipes</a></li>
+      <li><a href="#">Add a Recipe</a></li>
+      <li><a href="#">Settings</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Company</h4>
+    <ul>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Privacy</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">© 2026 YumDiary — Built with 🍴 and a lot of good food.</div>
+
+<script>
+  function setCat(el) {
+    document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+  }
+  function setFilter(el) {
+    document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+  function toggleSave(btn) {
+    event.stopPropagation();
+    btn.classList.toggle('saved');
+    const isSaved = btn.classList.contains('saved');
+    btn.innerHTML = isSaved
+      ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>'
+      : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
+  }
+</script>
+
+</body>
+</html>
